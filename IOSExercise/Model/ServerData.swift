@@ -10,6 +10,7 @@ import Foundation
 
 class ServerData{
 
+    // To store data in a common sharable place across the app
     static let sharedInstance = ServerData()
 
     var title : String?

@@ -9,13 +9,14 @@
 import Foundation
 import SystemConfiguration //network checking
 import UIKit //UIView creation
+import SnapKit
 
 class Utility : NSObject{
     
     static let shared: Utility = Utility()
     
     
-    
+    //Check for internet
     func isInternetAvailable() -> Bool{
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
@@ -35,6 +36,7 @@ class Utility : NSObject{
         return (isReachable && !needsConnection)
     }
     
+    //showing toast message
     func showToast(message: String, view: UIView){
         let x = getSize(input: 20, view: view)
         let y = getSize(input: 200, view: view)
@@ -57,6 +59,7 @@ class Utility : NSObject{
         
     }
     
+    //scaling to ipad size if needed
     func getSize(input: CGFloat, view : UIView) -> CGFloat {
         if(view.traitCollection.horizontalSizeClass == .regular && view.traitCollection.verticalSizeClass == .regular){
             return (input*3/2)
@@ -66,12 +69,17 @@ class Utility : NSObject{
         }
     }
     
+    //creating an activity indicator view
     func getActivityIndicator(view: UIView) -> UIActivityIndicatorView{
         
         let indicator: UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         indicator.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         indicator.center = view.center
         view.addSubview(indicator)
+        indicator.snp.makeConstraints{
+            $0.width.height.equalTo(40)
+            $0.centerX.centerY.equalToSuperview()
+        }
         view.bringSubviewToFront(indicator)
         return indicator
     }

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 class RowCell: UITableViewCell {
-
+    
     static let identifier: String = "row_cell"
     
     var titleLabel: UILabel!
@@ -27,12 +27,15 @@ class RowCell: UITableViewCell {
             $0.left.right.equalToSuperview().inset(10)
             $0.top.bottom.equalToSuperview().inset(5)
         }
+        self.contentView.backgroundColor = UIColor.white
         titleLabel = UILabel(frame: .zero)
         descriptionLabel = UILabel(frame: .zero)
         rowImage = UIImageView()
         self.contentView.addSubview(titleLabel)
         self.contentView.addSubview(rowImage)
         self.contentView.addSubview(descriptionLabel)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: Utility.shared.getSize(input: 26.0, view: titleLabel))
+        descriptionLabel.font = UIFont.systemFont(ofSize: Utility.shared.getSize(input: 17.0, view: descriptionLabel))
         titleLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(20)
             $0.right.equalToSuperview().offset(-10)
