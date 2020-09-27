@@ -23,6 +23,10 @@ class RowCell: UITableViewCell {
     }
     
     func configure(){
+        self.contentView.snp.makeConstraints{
+            $0.left.right.equalToSuperview().inset(10)
+            $0.top.bottom.equalToSuperview().inset(5)
+        }
         titleLabel = UILabel(frame: .zero)
         descriptionLabel = UILabel(frame: .zero)
         rowImage = UIImageView()
@@ -32,18 +36,19 @@ class RowCell: UITableViewCell {
         titleLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(20)
             $0.right.equalToSuperview().offset(-10)
-            $0.top.equalToSuperview().offset(14)
+            $0.top.equalToSuperview().offset(10)
         }
         rowImage.snp.makeConstraints{
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
             $0.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
         descriptionLabel.snp.makeConstraints{
-            $0.left.equalTo(titleLabel).offset(20)
-            $0.right.equalTo(titleLabel).offset(-20)
+            $0.left.equalTo(titleLabel)
+            $0.right.equalToSuperview().offset(-10)
             $0.top.equalTo(rowImage.snp.bottom).offset(10)
-            $0.bottom.equalToSuperview().offset(-14)
+            $0.bottom.equalToSuperview().offset(-10)
         }
         
     }

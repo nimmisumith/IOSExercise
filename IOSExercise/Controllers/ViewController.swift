@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 class ViewController: UIViewController,LoadDataDelegate{
 
@@ -32,22 +33,29 @@ class ViewController: UIViewController,LoadDataDelegate{
 
     func addNavigationBar(){
         navBar = UINavigationBar(frame: CGRect(x: 0, y:0, width:view.frame.size.width, height: 44))
-        
+        view.addSubview(navBar)
        // let safeInsets: UIEdgeInsets = UIApplication.shared.delegate?.window.safeAreaInsets
       //  paddingTop = safeInsets.top
         navBar.tintColor = UIColor.darkGray
-        navBar.isTranslucent = false
-        navBar.barTintColor = UIColor.white
-        view.addSubview(navBar)
+       // navBar.isTranslucent = false
+       // navBar.barTintColor = UIColor.white
+        
+        
+        
+        
         let navItem = UINavigationItem(title: "Title Here")
+        let reloadButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: nil, action: #selector(ViewController.didTapReloadButton(sender:)))
+        navItem.rightBarButtonItem = reloadButton
         navBar.setItems([navItem],animated: false)
         
-        let reloadButton = UIBarButtonItem(image: UIImage(systemName:"circle") , style: UIBarButtonItem.Style.plain, target: self, action: #selector(ViewController.didTapReloadButton(sender:)))
+      //  let reloadButton = UIBarButtonItem(image: UIImage(systemName:"circle") , style: UIBarButtonItem.Style.plain, target: self, action: #selector(ViewController.didTapReloadButton(sender:)))
         navigationItem.rightBarButtonItem = reloadButton
         
         navBar.snp.makeConstraints{
             $0.top.equalToSuperview().offset(22)
+            $0.leading.equalToSuperview()
         }
+        
     }
     func setupTableView(){
        
@@ -64,6 +72,7 @@ class ViewController: UIViewController,LoadDataDelegate{
                tableView.delegate = self
                tableView.estimatedRowHeight = 100
                tableView.rowHeight = UITableView.automaticDimension
+        tableView.backgroundColor = UIColor.lightGray
     }
     
     func readDataFromApi(){
@@ -107,9 +116,13 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate{
         cell.descriptionLabel?.numberOfLines = -1
         cell.descriptionLabel?.text = item.descript
         cell.rowImage?.backgroundColor = UIColor.gray
-      //  cell.rowImage?.loadThumbnail(urlString: item.imageHref)
+        cell.rowImage?.sd_setImage(with: URL(string: item.imageHref))
+      //  cell.rowImage?.sd_setImage(with: URL(string: item.imageHref),placeholderImage: nil,context: [.imageTransformer: getSDTransformer()])
         return cell
     }
     
+    func getSDTransformer() -> SDImageResizingTransformer{
+        return SDImageResizingTransformer(size: CGSize(width: 300,height: 250),scaleMode: .aspectFit)
+    }
 }
 
