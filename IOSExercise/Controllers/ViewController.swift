@@ -11,7 +11,7 @@ import SnapKit
 import SDWebImage
 
 class ViewController: UIViewController,LoadDataDelegate{
-
+    
     var navBar : UINavigationBar!
     var indicator: UIActivityIndicatorView!
     var tableView = UITableView()
@@ -30,7 +30,18 @@ class ViewController: UIViewController,LoadDataDelegate{
         setupActivityIndicator()
         readDataFromApi()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if self.serverdata.jsonData.count > 0{
+            
+            DispatchQueue.main.async{
+                self.tableView.reloadData()
+                self.title = self.serverdata.title ?? ""
+                self.navBar.topItem?.title = self.serverdata.title ?? ""
+            }
+        }
+    }
+    
     func addNavigationBar(){
         navBar = UINavigationBar(frame: CGRect(x: 0, y:0, width:view.frame.size.width, height: 44))
         view.addSubview(navBar)
@@ -51,27 +62,27 @@ class ViewController: UIViewController,LoadDataDelegate{
         
     }
     func setupTableView(){
-       
+        
         tableView = UITableView(frame: .zero)
-               view.addSubview(tableView)
-               tableView.snp.makeConstraints{
-                $0.top.equalToSuperview().offset(60)
-                $0.width.equalToSuperview()
-                $0.centerY.equalToSuperview()
-                $0.bottom.equalToSuperview()
-               }
-               tableView.register(RowCell.self, forCellReuseIdentifier: RowCell.identifier)
-               tableView.dataSource = self
-               tableView.delegate = self
-               tableView.estimatedRowHeight = 100
-               tableView.rowHeight = UITableView.automaticDimension
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(60)
+            $0.width.equalToSuperview()
+            $0.centerY.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+        tableView.register(RowCell.self, forCellReuseIdentifier: RowCell.identifier)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
     }
     
     func readDataFromApi(){
         if Utility.shared.isInternetAvailable(){
             //call api
             api.getJsonFromUrl()
-           
+            
         }
         else{
             Utility.shared.showToast(message: Constants.InternetCheckMessage, view: self.view)
@@ -91,15 +102,17 @@ class ViewController: UIViewController,LoadDataDelegate{
     }
     @objc func didTapReloadButton(sender: UIBarButtonItem){
         //reload data
+        self.indicator.startAnimating()
+        self.indicatorView.isHidden = false
         readDataFromApi()
     }
     
     func dataLoaded(_ b: Bool) {
-          
+        
         if(!b){
             //if api fails, showing offline data from json file
-             api.readJsonFile(fileName: "file")
-             return
+            api.readJsonFile(fileName: "file")
+            return
         }
         else{
             //load data from shared object
