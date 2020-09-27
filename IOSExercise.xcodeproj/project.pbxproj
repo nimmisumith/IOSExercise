@@ -15,6 +15,13 @@
 		A403E1922520E21D0067E949 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A403E1902520E21D0067E949 /* LaunchScreen.storyboard */; };
 		A403E19D2520E21E0067E949 /* IOSExerciseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A403E19C2520E21E0067E949 /* IOSExerciseTests.swift */; };
 		A403E1AB2520EEA70067E949 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A403E1AA2520EEA70067E949 /* Podfile */; };
+		A403E1AD252103550067E949 /* RowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A403E1AC252103550067E949 /* RowModel.swift */; };
+		A403E1AF252103600067E949 /* ServerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A403E1AE252103600067E949 /* ServerData.swift */; };
+		A403E1B2252103980067E949 /* RowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A403E1B1252103980067E949 /* RowCell.swift */; };
+		A403E1B6252107710067E949 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A403E1B3252107710067E949 /* Constants.swift */; };
+		A403E1B7252107710067E949 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A403E1B4252107710067E949 /* Utility.swift */; };
+		A403E1B8252107710067E949 /* ApiCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = A403E1B5252107710067E949 /* ApiCalls.swift */; };
+		A403E1BA2521082A0067E949 /* file.json in Resources */ = {isa = PBXBuildFile; fileRef = A403E1B92521082A0067E949 /* file.json */; };
 		D9DB9E92D3313F32AB2B29E1 /* Pods_IOSExerciseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB86EEA9679C849C3F18C561 /* Pods_IOSExerciseTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +51,13 @@
 		A403E19C2520E21E0067E949 /* IOSExerciseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSExerciseTests.swift; sourceTree = "<group>"; };
 		A403E19E2520E21E0067E949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A403E1AA2520EEA70067E949 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A403E1AC252103550067E949 /* RowModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowModel.swift; sourceTree = "<group>"; };
+		A403E1AE252103600067E949 /* ServerData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerData.swift; sourceTree = "<group>"; };
+		A403E1B1252103980067E949 /* RowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowCell.swift; sourceTree = "<group>"; };
+		A403E1B3252107710067E949 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A403E1B4252107710067E949 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		A403E1B5252107710067E949 /* ApiCalls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiCalls.swift; sourceTree = "<group>"; };
+		A403E1B92521082A0067E949 /* file.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = file.json; sourceTree = "<group>"; };
 		BB86EEA9679C849C3F18C561 /* Pods_IOSExerciseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IOSExerciseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2918C0D0582FB2AC7C65104 /* Pods-IOSExercise.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSExercise.debug.xcconfig"; path = "Target Support Files/Pods-IOSExercise/Pods-IOSExercise.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +125,7 @@
 		A403E1842520E1F60067E949 /* IOSExercise */ = {
 			isa = PBXGroup;
 			children = (
+				A403E1B0252103980067E949 /* Views */,
 				A403E1AA2520EEA70067E949 /* Podfile */,
 				A403E1A92520E7B60067E949 /* Utilities */,
 				A403E1A82520E7AA0067E949 /* Model */,
@@ -144,6 +159,8 @@
 		A403E1A82520E7AA0067E949 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A403E1AE252103600067E949 /* ServerData.swift */,
+				A403E1AC252103550067E949 /* RowModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -151,8 +168,20 @@
 		A403E1A92520E7B60067E949 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A403E1B92521082A0067E949 /* file.json */,
+				A403E1B5252107710067E949 /* ApiCalls.swift */,
+				A403E1B3252107710067E949 /* Constants.swift */,
+				A403E1B4252107710067E949 /* Utility.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		A403E1B0252103980067E949 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A403E1B1252103980067E949 /* RowCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A403E1AB2520EEA70067E949 /* Podfile in Resources */,
+				A403E1BA2521082A0067E949 /* file.json in Resources */,
 				A403E1922520E21D0067E949 /* LaunchScreen.storyboard in Resources */,
 				A403E18F2520E21D0067E949 /* Assets.xcassets in Resources */,
 			);
@@ -323,8 +353,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A403E1AF252103600067E949 /* ServerData.swift in Sources */,
 				A403E18A2520E1F60067E949 /* ViewController.swift in Sources */,
+				A403E1B2252103980067E949 /* RowCell.swift in Sources */,
 				A403E1862520E1F60067E949 /* AppDelegate.swift in Sources */,
+				A403E1B8252107710067E949 /* ApiCalls.swift in Sources */,
+				A403E1B7252107710067E949 /* Utility.swift in Sources */,
+				A403E1B6252107710067E949 /* Constants.swift in Sources */,
+				A403E1AD252103550067E949 /* RowModel.swift in Sources */,
 				A403E1882520E1F60067E949 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
