@@ -72,7 +72,7 @@ class Utility : NSObject{
     //creating an activity indicator view
     func getActivityIndicator(view: UIView) -> UIActivityIndicatorView{
         
-        let indicator: UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        let indicator: UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
         indicator.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         indicator.center = view.center
         view.addSubview(indicator)
