@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 class RowCell: UITableViewCell {
     
@@ -17,19 +18,36 @@ class RowCell: UITableViewCell {
     var descriptionLabel: UILabel!
     var rowImage: UIImageView!
     
+    var cellVM : CellViewModel?{
+        didSet{
+            
+            print("Rowcell didset called")
+            titleLabel.text = cellVM?.rowtitle
+            print("cellVM?.rowtitle \(cellVM?.rowtitle)")
+            descriptionLabel.attributedText = NSAttributedString(string: cellVM?.descript ?? "")//
+            
+            rowImage?.sd_setImage(with: URL(string: cellVM?.imageHref ?? ""), placeholderImage: nil, context: [.imageTransformer: getSDTransformer()])
+           
+        }
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        print("Rowcell init")
         self.configure()
     }
     
     func configure(){
         self.contentView.snp.makeConstraints{
-            $0.left.right.equalToSuperview().inset(10)
-            $0.top.bottom.equalToSuperview().inset(5)
+            $0.left.right.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
         }
         self.contentView.backgroundColor = UIColor.white
-        titleLabel = UILabel(frame: .zero)
-        descriptionLabel = UILabel(frame: .zero)
+        titleLabel = UILabel()
+        titleLabel.textColor = UIColor.black
+        descriptionLabel = UILabel()
+        descriptionLabel.numberOfLines = -1
+        descriptionLabel.textColor = UIColor.black
         rowImage = UIImageView()
         self.contentView.addSubview(titleLabel)
         self.contentView.addSubview(rowImage)
@@ -37,23 +55,33 @@ class RowCell: UITableViewCell {
         titleLabel.font = UIFont.boldSystemFont(ofSize: Utility.shared.getSize(input: 26.0, view: titleLabel))
         descriptionLabel.font = UIFont.systemFont(ofSize: Utility.shared.getSize(input: 17.0, view: descriptionLabel))
         titleLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(20)
-            $0.right.equalToSuperview().offset(-10)
-            $0.top.equalToSuperview().offset(10)
+            $0.left.equalTo(contentView.snp.left).offset(20)
+            $0.right.equalTo(contentView.snp.right).offset(-20)
+            $0.top.equalTo(contentView.snp.top).offset(10)
+            $0.height.equalTo(50)
+            
         }
         rowImage.snp.makeConstraints{
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
+            
+            $0.leading.equalTo(contentView.snp.leading)
+            $0.trailing.equalTo(contentView.snp.trailing)
             $0.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
         descriptionLabel.snp.makeConstraints{
-            $0.left.equalTo(titleLabel)
-            $0.right.equalToSuperview().offset(-10)
-            $0.top.equalTo(rowImage.snp.bottom).offset(10)
-            $0.bottom.equalToSuperview().offset(-10)
+            $0.leading.equalTo(contentView.snp.leading).offset(20)
+            $0.trailing.equalTo(contentView.snp.trailing).offset(-20)
+            $0.top.greaterThanOrEqualTo(rowImage.snp.bottom).offset(10)
+           // $0.top.equalTo(rowImage.snp.bottom).offset(10)
+            $0.bottom.equalTo(contentView.snp.bottom).offset(-10)
+          //  $0.height.greaterThanOrEqualTo(50)
         }
+        print("Rowcell configure ")
         
+    }
+    
+    //resizing image to a fixed size area
+    func getSDTransformer() -> SDImageResizingTransformer{
+        return SDImageResizingTransformer(size: CGSize(width: 300,height: 250),scaleMode: .aspectFit)
     }
     
     required init?(coder: NSCoder) {

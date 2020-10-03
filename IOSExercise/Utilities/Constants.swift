@@ -10,5 +10,6 @@ import Foundation
 
 struct Constants{
     
+    static let URL_PATH = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
     static let InternetCheckMessage = "Please check your Internet Connection..."
 }

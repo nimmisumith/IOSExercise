@@ -22,6 +22,7 @@
 		A403E1B7252107710067E949 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A403E1B4252107710067E949 /* Utility.swift */; };
 		A403E1B8252107710067E949 /* ApiCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = A403E1B5252107710067E949 /* ApiCalls.swift */; };
 		A403E1BA2521082A0067E949 /* file.json in Resources */ = {isa = PBXBuildFile; fileRef = A403E1B92521082A0067E949 /* file.json */; };
+		A4307AF22525F8D3008440DD /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4307AF12525F8D2008440DD /* ListViewModel.swift */; };
 		E6985D9750A4902530915888 /* libPods-IOSExerciseTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 960D1B3C380A28664E8A6285 /* libPods-IOSExerciseTests.a */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		A403E1B4252107710067E949 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		A403E1B5252107710067E949 /* ApiCalls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiCalls.swift; sourceTree = "<group>"; };
 		A403E1B92521082A0067E949 /* file.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = file.json; sourceTree = "<group>"; };
+		A4307AF12525F8D2008440DD /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 		A403E1842520E1F60067E949 /* IOSExercise */ = {
 			isa = PBXGroup;
 			children = (
+				A4307AF02525F862008440DD /* View Model */,
 				A403E1B0252103980067E949 /* Views */,
 				A403E1AA2520EEA70067E949 /* Podfile */,
 				A403E1A92520E7B60067E949 /* Utilities */,
@@ -182,6 +185,14 @@
 				A403E1B1252103980067E949 /* RowCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A4307AF02525F862008440DD /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				A4307AF12525F8D2008440DD /* ListViewModel.swift */,
+			);
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -353,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4307AF22525F8D3008440DD /* ListViewModel.swift in Sources */,
 				A403E1AF252103600067E949 /* ServerData.swift in Sources */,
 				A403E18A2520E1F60067E949 /* ViewController.swift in Sources */,
 				A403E1B2252103980067E949 /* RowCell.swift in Sources */,

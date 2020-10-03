@@ -6,18 +6,35 @@
 //  Copyright © 2020 Nimmi P. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import SwiftyJSON
 
-class RowModel: NSObject {
 
-       var rowtitle: String
-       var descript: String
-       var imageHref: String
-       
-       init(json: JSON) {
-           self.rowtitle = json["title"].stringValue
-           self.descript = json["description"].stringValue
-           self.imageHref = json["imageHref"].stringValue
-       }
+struct Rows: Codable{
+    let title: String
+    let rows: [RowModel]
 }
+struct RowModel: Codable{
+    let rowtitle: String?
+    let descript: String?
+    let imageHref: String?
+    
+    enum CodingKeys: String, CodingKey{
+        case rowtitle = "title"
+        case descript = "description"
+        case imageHref = "imageHref"
+    }
+}
+
+//class RowModel: NSObject {
+//
+//       var rowtitle: String
+//       var descript: String
+//       var imageHref: String
+//
+//       init(json: JSON) {
+//           self.rowtitle = json["title"].stringValue
+//           self.descript = json["description"].stringValue
+//           self.imageHref = json["imageHref"].stringValue
+//       }
+//}
