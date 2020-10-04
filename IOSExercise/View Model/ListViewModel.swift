@@ -10,6 +10,8 @@ import Foundation
 
 class ListViewModel{
     
+    /*  A view model class that handle UI based on fetched data from api **/
+    
     let apiService: APIServiceProtocol
     
     private var rows:[RowModel] = [RowModel]()
@@ -44,45 +46,41 @@ class ListViewModel{
         self.apiService = apiService
     }
     
+    // fetch data from api if network connection available. If error / no internet connection, showing an alert message accordingly
     func initFetch(){
         if Utility.shared.isInternetAvailable(){
-                    //call api
-                    self.isLoading = true
-                           apiService.getJsonFromUrl{ [weak self] (success, rows, error) in
-                               self?.isLoading = false
-                               if let error = error {
-                                self?.alertMessage = error.localizedDescription
-                                print("error initFetch vm : \(error.localizedDescription)")
-                               }
-                               else{
-                                   
-                                   self?.setupFetchedData(rows: rows)
-                               }
-                               
-                           }
-        
+            self.isLoading = true
+            apiService.getJsonFromUrl{ [weak self] (success, rows, error) in
+                self?.isLoading = false
+                if let error = error {
+                    self?.alertMessage = error.localizedDescription
                 }
                 else{
-                    self.alertMessage = Constants.InternetCheckMessage
+                    self?.setupFetchedData(rows: rows)
                 }
+            }
+        }
+        else{
+            self.alertMessage = Constants.InternetCheckMessage
+        }
     }
     
+    // Returns cell viewmodel for each row in tableview.
     func getCellViewModel(at indexPath: IndexPath) -> CellViewModel {
         return cellViews[indexPath.row]
     }
     
+    //Creating cell viewmodel with values
     func createCellViewModel(row: RowModel) -> CellViewModel{
-        
-        
         return CellViewModel(rowtitle: row.rowtitle ?? "", descript: row.descript ?? "", imageHref: row.imageHref ?? "")
     }
     
+    // Setup cell viewmodel for each row, if a value exists for a row
     private func setupFetchedData(rows: [RowModel]){
-        print(rows.count)
+       
         self.rows = rows //cache data
         var cellvm = [CellViewModel]()
         for row in rows{
-            print("row in vm \(row.rowtitle)")
             //Skip creating a row if all values are empty
             if row.rowtitle == nil && row.descript == nil && row.imageHref == nil {
                 continue
@@ -90,13 +88,12 @@ class ListViewModel{
             cellvm.append(createCellViewModel(row: row))
         }
         self.cellViews = cellvm
-        print("set data")
     }
     
 }
 
 
-
+// A cell model template
 struct CellViewModel{
     let rowtitle: String
     let descript: String

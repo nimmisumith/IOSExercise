@@ -18,25 +18,22 @@ class RowCell: UITableViewCell {
     var descriptionLabel: UILabel!
     var rowImage: UIImageView!
     
+    // Setting data in cell views from viewmodel, when cell viewmodel data is set.
     var cellVM : CellViewModel?{
         didSet{
             
-            print("Rowcell didset called")
             titleLabel.text = cellVM?.rowtitle
-            print("cellVM?.rowtitle \(cellVM?.rowtitle)")
-            descriptionLabel.attributedText = NSAttributedString(string: cellVM?.descript ?? "")//
-            
+            descriptionLabel.attributedText = NSAttributedString(string: cellVM?.descript ?? "")
             rowImage?.sd_setImage(with: URL(string: cellVM?.imageHref ?? ""), placeholderImage: nil, context: [.imageTransformer: getSDTransformer()])
-           
         }
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        print("Rowcell init")
         self.configure()
     }
     
+    //Table cell configuration, view alignment
     func configure(){
         self.contentView.snp.makeConstraints{
             $0.left.right.equalToSuperview()
@@ -59,7 +56,6 @@ class RowCell: UITableViewCell {
             $0.right.equalTo(contentView.snp.right).offset(-20)
             $0.top.equalTo(contentView.snp.top).offset(10)
             $0.height.equalTo(50)
-            
         }
         rowImage.snp.makeConstraints{
             
@@ -71,11 +67,8 @@ class RowCell: UITableViewCell {
             $0.leading.equalTo(contentView.snp.leading).offset(20)
             $0.trailing.equalTo(contentView.snp.trailing).offset(-20)
             $0.top.greaterThanOrEqualTo(rowImage.snp.bottom).offset(10)
-           // $0.top.equalTo(rowImage.snp.bottom).offset(10)
             $0.bottom.equalTo(contentView.snp.bottom).offset(-10)
-          //  $0.height.greaterThanOrEqualTo(50)
         }
-        print("Rowcell configure ")
         
     }
     

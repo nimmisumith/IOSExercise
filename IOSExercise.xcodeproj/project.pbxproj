@@ -23,6 +23,7 @@
 		A403E1B8252107710067E949 /* ApiCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = A403E1B5252107710067E949 /* ApiCalls.swift */; };
 		A403E1BA2521082A0067E949 /* file.json in Resources */ = {isa = PBXBuildFile; fileRef = A403E1B92521082A0067E949 /* file.json */; };
 		A4307AF22525F8D3008440DD /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4307AF12525F8D2008440DD /* ListViewModel.swift */; };
+		A46B042D252A3C9A00FB8D71 /* APIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B042C252A3C9800FB8D71 /* APIServiceTests.swift */; };
 		E6985D9750A4902530915888 /* libPods-IOSExerciseTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 960D1B3C380A28664E8A6285 /* libPods-IOSExerciseTests.a */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +63,7 @@
 		A403E1B5252107710067E949 /* ApiCalls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiCalls.swift; sourceTree = "<group>"; };
 		A403E1B92521082A0067E949 /* file.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = file.json; sourceTree = "<group>"; };
 		A4307AF12525F8D2008440DD /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		A46B042C252A3C9800FB8D71 /* APIServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 			children = (
 				A403E19C2520E21E0067E949 /* IOSExerciseTests.swift */,
 				A403E19E2520E21E0067E949 /* Info.plist */,
+				A46B042C252A3C9800FB8D71 /* APIServiceTests.swift */,
 			);
 			path = IOSExerciseTests;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A46B042D252A3C9A00FB8D71 /* APIServiceTests.swift in Sources */,
 				A403E19D2520E21E0067E949 /* IOSExerciseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

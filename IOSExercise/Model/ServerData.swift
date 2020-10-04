@@ -14,5 +14,4 @@ class ServerData{
     static let sharedInstance = ServerData()
 
     var title : String?
-    var jsonData = [RowModel]()
 }

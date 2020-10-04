@@ -10,7 +10,6 @@ target 'IOSExercise' do
   # Pods for IOSExercise
 
   pod 'SwiftLint'
-  pod 'SwiftyJSON'
   pod 'SnapKit'
   pod 'SDWebImage'
 

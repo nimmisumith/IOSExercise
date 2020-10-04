@@ -7,9 +7,8 @@
 //
 
 import Foundation
-import SwiftyJSON
 
-
+// codable structure for storing parsed json data
 struct Rows: Codable{
     let title: String
     let rows: [RowModel]
@@ -25,16 +24,3 @@ struct RowModel: Codable{
         case imageHref = "imageHref"
     }
 }
-
-//class RowModel: NSObject {
-//
-//       var rowtitle: String
-//       var descript: String
-//       var imageHref: String
-//
-//       init(json: JSON) {
-//           self.rowtitle = json["title"].stringValue
-//           self.descript = json["description"].stringValue
-//           self.imageHref = json["imageHref"].stringValue
-//       }
-//}
