@@ -14,7 +14,10 @@ class ListViewModel{
     
     let apiService: APIServiceProtocol
     
+    
     private var rows:[RowModel] = [RowModel]()
+    
+    var title: String?
     
     private var cellViews: [CellViewModel] = [CellViewModel](){
         didSet {
@@ -38,9 +41,11 @@ class ListViewModel{
         return cellViews.count
     }
     
+   
     var reloadTableViewClosure: (() -> ())?
     var showAlertClosure: (() -> ())?
     var updateLoadingStatus: (() -> ())?
+    var setNavigationTitle: (() ->())?
     
     init(apiService: APIServiceProtocol = ApiCalls()) {
         self.apiService = apiService
@@ -50,13 +55,13 @@ class ListViewModel{
     func initFetch(){
         if Utility.shared.isInternetAvailable(){
             self.isLoading = true
-            apiService.getJsonFromUrl{ [weak self] (success, rows, error) in
+            apiService.getJsonFromUrl{ [weak self] (success, data, error) in
                 self?.isLoading = false
                 if let error = error {
                     self?.alertMessage = error.localizedDescription
                 }
                 else{
-                    self?.setupFetchedData(rows: rows)
+                    self?.setupFetchedData(data: data)
                 }
             }
         }
@@ -76,9 +81,10 @@ class ListViewModel{
     }
     
     // Setup cell viewmodel for each row, if a value exists for a row
-    private func setupFetchedData(rows: [RowModel]){
+    private func setupFetchedData(data: Rows){
        
-        self.rows = rows //cache data
+        self.rows = data.rows //cache data
+        self.title = data.title
         var cellvm = [CellViewModel]()
         for row in rows{
             //Skip creating a row if all values are empty

@@ -12,11 +12,7 @@ import SDWebImage
 
 class ViewController: UIViewController {
     
-    var navBar : UINavigationBar!
-    var indicator: UIActivityIndicatorView!
     var tableView = UITableView()
-    var indicatorView = UIView()
-    var serverdata: ServerData!
     
     lazy var viewModel: ListViewModel = {
         return ListViewModel()
@@ -24,8 +20,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        serverdata = ServerData.sharedInstance
         
         //init views
         initView()
@@ -36,9 +30,9 @@ class ViewController: UIViewController {
     }
     
     func initView(){
+        
         setupTableView()
-        addNavigationBar()
-        setupActivityIndicator()
+        setupNavigationBarItems()
     }
     
     func initVM(){
@@ -57,17 +51,15 @@ class ViewController: UIViewController {
                 let isLoading = self?.viewModel.isLoading ?? false
                 if isLoading{
                     //show activity indicator
-                    self?.indicator.startAnimating()
-                    self?.indicatorView.isHidden = false
-                    //hide tableview
+                    self?.showActivityIndicator()
+                 //   //hide tableview
                     UIView.animate(withDuration: Constants.animate_duration, animations: {
                         self?.tableView.alpha = CGFloat(Constants.alpha_0)
                     })
                 }
                 else{
                     //hide activity indicator
-                    self?.indicator.stopAnimating()
-                    self?.indicatorView.isHidden = true
+                    self?.hideActivityIndicator()
                     //show tableview
                     UIView.animate(withDuration: Constants.animate_duration, animations: {
                         self?.tableView.alpha = CGFloat(Constants.alpha_1)
@@ -80,8 +72,7 @@ class ViewController: UIViewController {
         viewModel.reloadTableViewClosure = { [weak self]() in
             
             DispatchQueue.main.async {
-                self?.title = self?.serverdata.title ?? ""
-                self?.navBar.topItem?.title = self?.serverdata.title ?? ""
+                self?.title = self?.viewModel.title ?? Constants.emptyString
                 self?.tableView.reloadData()
             }
         }
@@ -90,51 +81,23 @@ class ViewController: UIViewController {
         viewModel.initFetch()
     }
     
-    //adding navigation bar and reload button
-    func addNavigationBar(){
-        navBar = UINavigationBar(frame: CGRect(x: Constants.zero, y:Constants.zero, width:Int(view.frame.size.width), height: Int(Constants.navigation_height)))
-        view.addSubview(navBar)
-        view.bringSubviewToFront(navBar)
-        navBar.tintColor = UIColor.darkGray
-        
-        let navItem = UINavigationItem(title: "")
-        let reloadButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: nil, action: #selector(ViewController.didTapReloadButton(sender:)))
-        navItem.rightBarButtonItem = reloadButton
-        navBar.setItems([navItem],animated: false)
-        navigationItem.rightBarButtonItem = reloadButton
-        
-        navBar.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(Constants.statusbar_height)
-            $0.left.right.equalToSuperview()
-            $0.height.equalTo(Constants.navigation_height)
-        }
-        
+    //adding reload button in navigation bar
+    func setupNavigationBarItems(){
+      
+            let reloadButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(ViewController.didTapReloadButton(sender:)))
+             reloadButton.tintColor = UIColor.purple
+                   self.navigationItem.rightBarButtonItem = reloadButton
     }
     
-    //adding activity indicator
-    func setupActivityIndicator(){
-        
-        indicator = Utility.shared.getActivityIndicator(view: indicatorView)
-        indicator.startAnimating()
-        view.addSubview(indicatorView)
-        view.bringSubviewToFront(indicatorView)
-        indicatorView.snp.makeConstraints{
-            $0.width.height.equalTo(Constants.indicator_size)
-            $0.centerX.centerY.equalToSuperview()
-        }
-        
-    }
+    
     
     //adding tableview
     func setupTableView(){
         
-        tableView = UITableView(frame: .zero)
+        tableView = UITableView()
         view.addSubview(tableView)
         tableView.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(Constants.tableview_top_margin)
-            $0.left.equalToSuperview()
-            $0.right.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.top.left.bottom.right.equalToSuperview()
         }
         tableView.register(RowCell.self, forCellReuseIdentifier: Constants.cell_identifier)
         tableView.dataSource = self
@@ -146,8 +109,13 @@ class ViewController: UIViewController {
     //reload button click action
     @objc func didTapReloadButton(sender: UIBarButtonItem){
         //reload data
-        self.indicator.startAnimating()
-        self.indicatorView.isHidden = false
+         DispatchQueue.main.async {
+            UIView.animate(withDuration: Constants.animate_duration, animations: {
+                           self.tableView.alpha = CGFloat(Constants.alpha_0)
+                       })
+            self.showActivityIndicator()
+
+        }
         viewModel.initFetch()
     }
 }
@@ -169,6 +137,5 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate{
         
         return cell
     }
-    
     
 }

@@ -35,39 +35,32 @@ class RowCell: UITableViewCell {
     //Table cell configuration, view alignment
     func configure(){
         self.contentView.snp.makeConstraints{
-            $0.left.right.equalToSuperview()
-            $0.top.bottom.equalToSuperview()
+            $0.top.left.bottom.right.equalToSuperview()
         }
-        self.contentView.backgroundColor = UIColor.white
+        
+        let stack = UIStackView()
+        stack.distribution = .fillProportionally
+        stack.alignment = .fill
+        stack.axis = .vertical
+        stack.spacing = Constants.stack_spacing
+        self.contentView.addSubview(stack)
+        
+        stack.snp.makeConstraints{ make in
+            make.top.left.equalTo(Constants.stack_padding)
+            make.bottom.right.equalTo(-Constants.stack_padding)
+        }
         titleLabel = UILabel()
-        titleLabel.textColor = UIColor.black
+        titleLabel.textColor = UIColor.purple
         descriptionLabel = UILabel()
         descriptionLabel.numberOfLines = Constants.infinite_lines
-        descriptionLabel.textColor = UIColor.black
+        descriptionLabel.textColor = UIColor.darkGray
         rowImage = UIImageView()
-        self.contentView.addSubview(titleLabel)
-        self.contentView.addSubview(rowImage)
-        self.contentView.addSubview(descriptionLabel)
         titleLabel.font = UIFont.boldSystemFont(ofSize: Utility.shared.getSize(input: CGFloat(Constants.title_fontsize), view: titleLabel))
         descriptionLabel.font = UIFont.systemFont(ofSize: Utility.shared.getSize(input: CGFloat(Constants.normal_fontsize), view: descriptionLabel))
-        titleLabel.snp.makeConstraints {
-            $0.left.equalTo(contentView.snp.left).offset(Constants.left_spacing)
-            $0.right.equalTo(contentView.snp.right).offset(Constants.right_spacing)
-            $0.top.equalTo(contentView.snp.top).offset(Constants.top_spacing)
-          //  $0.height.equalTo(50)
-        }
-        rowImage.snp.makeConstraints{
-            
-            $0.leading.equalTo(contentView.snp.leading)
-            $0.trailing.equalTo(contentView.snp.trailing)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(Constants.top_spacing)
-        }
-        descriptionLabel.snp.makeConstraints{
-            $0.leading.equalTo(contentView.snp.leading).offset(Constants.left_spacing)
-            $0.trailing.equalTo(contentView.snp.trailing).offset(Constants.right_spacing)
-            $0.top.greaterThanOrEqualTo(rowImage.snp.bottom).offset(Constants.top_spacing)
-            $0.bottom.equalTo(contentView.snp.bottom).offset(Constants.bottom_spacong)
-        }
+        
+        stack.addArrangedSubview(titleLabel)
+        stack.addArrangedSubview(rowImage)
+        stack.addArrangedSubview(descriptionLabel)
         
     }
     

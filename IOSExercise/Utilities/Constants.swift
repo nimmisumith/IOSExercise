@@ -26,12 +26,10 @@ struct Constants{
     static let cell_identifier: String = "row_cell"
     static let emptyString = ""
     static let infinite_lines = -1
-    static let title_fontsize = 26.0
+    static let title_fontsize = 20.0
     static let normal_fontsize = 17.0
-    static let left_spacing = 20
-    static let right_spacing = -20
-    static let top_spacing = 10
-    static let bottom_spacong = -10
+    static let stack_padding: CGFloat = 20
+    static let stack_spacing: CGFloat = 10
     static let image_width = 300
     static let image_height = 250
     //ApiCalls

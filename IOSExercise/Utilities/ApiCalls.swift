@@ -9,28 +9,27 @@
 import Foundation
 
 protocol APIServiceProtocol{
-    func getJsonFromUrl(complete: @escaping(_ success : Bool, _ data :[RowModel],_ error : Error? )->())
+    func getJsonFromUrl(complete: @escaping(_ success : Bool, _ data :Rows,_ error : Error? )->())
 }
 class ApiCalls: NSObject, APIServiceProtocol{
     
-    var serverdata: ServerData!
+    
     var url : URL!
     
     override init() {
         super.init()
         url = URL( string: Constants.URL_PATH)!
-        serverdata = ServerData.sharedInstance
     }
     
     //read data from url
-    func getJsonFromUrl(complete: @escaping (Bool, [RowModel], Error?) -> ()) {
+    func getJsonFromUrl(complete: @escaping (Bool, Rows, Error?) -> ()) {
         
         DispatchQueue.global().async {
             sleep(3)
             URLSession.shared.dataTask(with: self.url, completionHandler: {data, response, error in
                 
                 if error != nil{
-                    self.readJsonFile(fileName: Constants.json_file){ [weak self] (success, rows, error) in
+                    self.readJsonFile(fileName: Constants.json_file){(success, rows, error) in
                         complete(success, rows, nil)
                     }
                     return
@@ -42,12 +41,12 @@ class ApiCalls: NSObject, APIServiceProtocol{
                 let decoder = JSONDecoder()
                 do{
                     let rdata = try decoder.decode(Rows.self,from: data)
-                    self.serverdata.title = rdata.title
-                    complete(true, rdata.rows, nil)
+                   // self.serverdata.title = rdata.title
+                    complete(true, rdata, nil)
 
                 
                 }catch{
-                    self.readJsonFile(fileName: Constants.json_file){ [weak self] (success, rows, error) in
+                    self.readJsonFile(fileName: Constants.json_file){(success, rows, error) in
                         complete(success, rows, nil)
                     }
                 }
@@ -56,7 +55,7 @@ class ApiCalls: NSObject, APIServiceProtocol{
     }
     
     //Read data from file if api fails to load
-    func readJsonFile(fileName: String,complete: @escaping (Bool, [RowModel], Error?) -> ()) {
+    func readJsonFile(fileName: String,complete: @escaping (Bool, Rows, Error?) -> ()) {
         
         if let path = Bundle.main.path(forResource: fileName, ofType: "json") {
             
@@ -66,8 +65,8 @@ class ApiCalls: NSObject, APIServiceProtocol{
                 let decoder = JSONDecoder()
                 
                 let rdata = try decoder.decode(Rows.self,from: json)
-                self.serverdata.title = rdata.title
-                complete(true, rdata.rows, nil)
+               // self.serverdata.title = rdata.title
+                complete(true, rdata, nil)
                 
             }catch let error {
                 print(error.localizedDescription)
