@@ -34,7 +34,7 @@ class APIServiceTests: XCTestCase {
         tc.getJsonFromUrl(complete: { (success, rows, error) in
             
             expect.fulfill()
-            XCTAssertEqual(rows.count, 13)
+            XCTAssertEqual(rows.count, 14)
             
             for row in rows{
                 XCTAssertNotNil(row.rowtitle)
@@ -45,12 +45,5 @@ class APIServiceTests: XCTestCase {
         wait(for: [expect], timeout: 6.0)
     }
 
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
 
 }

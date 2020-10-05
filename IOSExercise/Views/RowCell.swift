@@ -12,7 +12,6 @@ import SDWebImage
 
 class RowCell: UITableViewCell {
     
-    static let identifier: String = "row_cell"
     
     var titleLabel: UILabel!
     var descriptionLabel: UILabel!
@@ -23,8 +22,8 @@ class RowCell: UITableViewCell {
         didSet{
             
             titleLabel.text = cellVM?.rowtitle
-            descriptionLabel.attributedText = NSAttributedString(string: cellVM?.descript ?? "")
-            rowImage?.sd_setImage(with: URL(string: cellVM?.imageHref ?? ""), placeholderImage: nil, context: [.imageTransformer: getSDTransformer()])
+            descriptionLabel.attributedText = NSAttributedString(string: cellVM?.descript ?? Constants.emptyString)
+            rowImage?.sd_setImage(with: URL(string: cellVM?.imageHref ?? Constants.emptyString), placeholderImage: nil, context: [.imageTransformer: getSDTransformer()])
         }
     }
     
@@ -43,38 +42,38 @@ class RowCell: UITableViewCell {
         titleLabel = UILabel()
         titleLabel.textColor = UIColor.black
         descriptionLabel = UILabel()
-        descriptionLabel.numberOfLines = -1
+        descriptionLabel.numberOfLines = Constants.infinite_lines
         descriptionLabel.textColor = UIColor.black
         rowImage = UIImageView()
         self.contentView.addSubview(titleLabel)
         self.contentView.addSubview(rowImage)
         self.contentView.addSubview(descriptionLabel)
-        titleLabel.font = UIFont.boldSystemFont(ofSize: Utility.shared.getSize(input: 26.0, view: titleLabel))
-        descriptionLabel.font = UIFont.systemFont(ofSize: Utility.shared.getSize(input: 17.0, view: descriptionLabel))
+        titleLabel.font = UIFont.boldSystemFont(ofSize: Utility.shared.getSize(input: CGFloat(Constants.title_fontsize), view: titleLabel))
+        descriptionLabel.font = UIFont.systemFont(ofSize: Utility.shared.getSize(input: CGFloat(Constants.normal_fontsize), view: descriptionLabel))
         titleLabel.snp.makeConstraints {
-            $0.left.equalTo(contentView.snp.left).offset(20)
-            $0.right.equalTo(contentView.snp.right).offset(-20)
-            $0.top.equalTo(contentView.snp.top).offset(10)
-            $0.height.equalTo(50)
+            $0.left.equalTo(contentView.snp.left).offset(Constants.left_spacing)
+            $0.right.equalTo(contentView.snp.right).offset(Constants.right_spacing)
+            $0.top.equalTo(contentView.snp.top).offset(Constants.top_spacing)
+          //  $0.height.equalTo(50)
         }
         rowImage.snp.makeConstraints{
             
             $0.leading.equalTo(contentView.snp.leading)
             $0.trailing.equalTo(contentView.snp.trailing)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(Constants.top_spacing)
         }
         descriptionLabel.snp.makeConstraints{
-            $0.leading.equalTo(contentView.snp.leading).offset(20)
-            $0.trailing.equalTo(contentView.snp.trailing).offset(-20)
-            $0.top.greaterThanOrEqualTo(rowImage.snp.bottom).offset(10)
-            $0.bottom.equalTo(contentView.snp.bottom).offset(-10)
+            $0.leading.equalTo(contentView.snp.leading).offset(Constants.left_spacing)
+            $0.trailing.equalTo(contentView.snp.trailing).offset(Constants.right_spacing)
+            $0.top.greaterThanOrEqualTo(rowImage.snp.bottom).offset(Constants.top_spacing)
+            $0.bottom.equalTo(contentView.snp.bottom).offset(Constants.bottom_spacong)
         }
         
     }
     
     //resizing image to a fixed size area
     func getSDTransformer() -> SDImageResizingTransformer{
-        return SDImageResizingTransformer(size: CGSize(width: 300,height: 250),scaleMode: .aspectFit)
+        return SDImageResizingTransformer(size: CGSize(width: Constants.image_width,height: Constants.image_height),scaleMode: .aspectFit)
     }
     
     required init?(coder: NSCoder) {

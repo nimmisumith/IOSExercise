@@ -21,6 +21,7 @@ class ApiCalls: NSObject, APIServiceProtocol{
         url = URL( string: Constants.URL_PATH)!
         serverdata = ServerData.sharedInstance
     }
+    
     //read data from url
     func getJsonFromUrl(complete: @escaping (Bool, [RowModel], Error?) -> ()) {
         
@@ -29,7 +30,7 @@ class ApiCalls: NSObject, APIServiceProtocol{
             URLSession.shared.dataTask(with: self.url, completionHandler: {data, response, error in
                 
                 if error != nil{
-                    self.readJsonFile(fileName: "file"){ [weak self] (success, rows, error) in
+                    self.readJsonFile(fileName: Constants.json_file){ [weak self] (success, rows, error) in
                         complete(success, rows, nil)
                     }
                     return
@@ -46,7 +47,7 @@ class ApiCalls: NSObject, APIServiceProtocol{
 
                 
                 }catch{
-                    self.readJsonFile(fileName: "file"){ [weak self] (success, rows, error) in
+                    self.readJsonFile(fileName: Constants.json_file){ [weak self] (success, rows, error) in
                         complete(success, rows, nil)
                     }
                 }
@@ -69,7 +70,7 @@ class ApiCalls: NSObject, APIServiceProtocol{
                 complete(true, rdata.rows, nil)
                 
             }catch let error {
-                print("parse error: \(error.localizedDescription)")
+                print(error.localizedDescription)
             }
             
         }

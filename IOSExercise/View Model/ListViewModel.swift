@@ -72,7 +72,7 @@ class ListViewModel{
     
     //Creating cell viewmodel with values
     func createCellViewModel(row: RowModel) -> CellViewModel{
-        return CellViewModel(rowtitle: row.rowtitle ?? "", descript: row.descript ?? "", imageHref: row.imageHref ?? "")
+        return CellViewModel(rowtitle: row.rowtitle ?? Constants.emptyString, descript: row.descript ?? Constants.emptyString, imageHref: row.imageHref ?? Constants.emptyString)
     }
     
     // Setup cell viewmodel for each row, if a value exists for a row

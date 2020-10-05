@@ -60,8 +60,8 @@ class ViewController: UIViewController {
                     self?.indicator.startAnimating()
                     self?.indicatorView.isHidden = false
                     //hide tableview
-                    UIView.animate(withDuration: 0.2, animations: {
-                        self?.tableView.alpha = 0.0
+                    UIView.animate(withDuration: Constants.animate_duration, animations: {
+                        self?.tableView.alpha = CGFloat(Constants.alpha_0)
                     })
                 }
                 else{
@@ -69,8 +69,8 @@ class ViewController: UIViewController {
                     self?.indicator.stopAnimating()
                     self?.indicatorView.isHidden = true
                     //show tableview
-                    UIView.animate(withDuration: 0.2, animations: {
-                        self?.tableView.alpha = 1.0
+                    UIView.animate(withDuration: Constants.animate_duration, animations: {
+                        self?.tableView.alpha = CGFloat(Constants.alpha_1)
                         self?.tableView.reloadData()
                     })
                 }
@@ -92,7 +92,7 @@ class ViewController: UIViewController {
     
     //adding navigation bar and reload button
     func addNavigationBar(){
-        navBar = UINavigationBar(frame: CGRect(x: 0, y:0, width:view.frame.size.width, height: 44))
+        navBar = UINavigationBar(frame: CGRect(x: Constants.zero, y:Constants.zero, width:Int(view.frame.size.width), height: Int(Constants.navigation_height)))
         view.addSubview(navBar)
         view.bringSubviewToFront(navBar)
         navBar.tintColor = UIColor.darkGray
@@ -104,9 +104,9 @@ class ViewController: UIViewController {
         navigationItem.rightBarButtonItem = reloadButton
         
         navBar.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(22)
+            $0.top.equalToSuperview().offset(Constants.statusbar_height)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(44)
+            $0.height.equalTo(Constants.navigation_height)
         }
         
     }
@@ -119,7 +119,7 @@ class ViewController: UIViewController {
         view.addSubview(indicatorView)
         view.bringSubviewToFront(indicatorView)
         indicatorView.snp.makeConstraints{
-            $0.width.height.equalTo(40)
+            $0.width.height.equalTo(Constants.indicator_size)
             $0.centerX.centerY.equalToSuperview()
         }
         
@@ -131,12 +131,12 @@ class ViewController: UIViewController {
         tableView = UITableView(frame: .zero)
         view.addSubview(tableView)
         tableView.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(60)
+            $0.top.equalToSuperview().offset(Constants.tableview_top_margin)
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
-        tableView.register(RowCell.self, forCellReuseIdentifier: RowCell.identifier)
+        tableView.register(RowCell.self, forCellReuseIdentifier: Constants.cell_identifier)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.estimatedRowHeight = UITableView.automaticDimension
@@ -161,7 +161,7 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RowCell.identifier, for: indexPath) as? RowCell else{
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cell_identifier, for: indexPath) as? RowCell else{
             fatalError("Cell does not exists")
         }
         let cellVM = viewModel.getCellViewModel(at : indexPath)
