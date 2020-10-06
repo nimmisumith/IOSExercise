@@ -29,8 +29,11 @@ class ListViewModelTest: XCTestCase {
 
     func test_create_cell_view_model() {
         // Given
-        let rows = StubGenerator().stubData()
-        mockAPIService.completeRows = rows
+        let data = StubGenerator().stubData()
+        mockAPIService.completeRows = data
+        guard let rows = data?.rows else{
+            return
+        }
         let expect = XCTestExpectation(description: "reload closure triggered")
         tc.reloadTableViewClosure = { () in
             expect.fulfill()
@@ -77,7 +80,7 @@ class ListViewModelTest: XCTestCase {
         goToFetchDataFinished()
 
         let indexPath = IndexPath(row: 1, section: 0)
-        let testRow = mockAPIService.completeRows[indexPath.row]
+        let testRow = mockAPIService.completeRows.rows[indexPath.row]
 
         // When
         let vm = tc.getCellViewModel(at: indexPath)
@@ -97,13 +100,13 @@ extension ListViewModelTest {
 }
 
 class MockApiService: APIServiceProtocol {
-    
   
-    var completeRows: [RowModel] = [RowModel]()
-    var completeClosure: ((Bool, [RowModel], Error?) -> ())!
-    
-    func getJsonFromUrl(complete: @escaping (Bool, [RowModel], Error?) -> ()) {
-           completeClosure = complete
+    var completeRows: Rows!
+    var completeClosure: ((Bool, Rows, Error?) -> ())!
+ 
+    func getJsonFromUrl(complete: @escaping (Bool, Rows?, Error?) -> ()) {
+       
+        completeClosure = complete
     }
     
     func fetchSuccess() {
@@ -117,7 +120,8 @@ class MockApiService: APIServiceProtocol {
 }
 
 class StubGenerator {
-    func stubData() -> [RowModel] {
+ 
+    func stubData() -> Rows? {
         if let path = Bundle.main.path(forResource: "file", ofType: "json") {
             
             do {
@@ -126,13 +130,13 @@ class StubGenerator {
                 let decoder = JSONDecoder()
                 
                 let rdata = try decoder.decode(Rows.self,from: json)
-                return rdata.rows
+                return rdata
                 
             }catch let error {
                 print("parse error: \(error.localizedDescription)")
             }
             
         }
-        return [RowModel]()
+        return nil
     }
 }

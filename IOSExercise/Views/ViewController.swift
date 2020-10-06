@@ -12,9 +12,11 @@ import SDWebImage
 
 class ViewController: UIViewController {
     
-    var tableView = UITableView()
+    //Tableview to display data
+    private var tableView = UITableView()
     
-    lazy var viewModel: ListViewModel = {
+    //ViewModel that connects UI components with presentation logic
+    private lazy var viewModel: ListViewModel = {
         return ListViewModel()
     }()
     
@@ -29,18 +31,18 @@ class ViewController: UIViewController {
         
     }
     
-    func initView(){
+    private func initView(){
         
         setupTableView()
         setupNavigationBarItems()
     }
     
-    func initVM(){
+    private func initVM(){
         // init alert closure
         viewModel.showAlertClosure = { [weak self]() in
             DispatchQueue.main.async {
                 if let self = self, let message = self.viewModel.alertMessage{
-                    Utility.shared.showToast(message: message, view: self.view)
+                    self.showToast(message: message)
                 }
             }
         }
@@ -52,7 +54,7 @@ class ViewController: UIViewController {
                 if isLoading{
                     //show activity indicator
                     self?.showActivityIndicator()
-                 //   //hide tableview
+                    //   //hide tableview
                     UIView.animate(withDuration: Constants.animate_duration, animations: {
                         self?.tableView.alpha = CGFloat(Constants.alpha_0)
                     })
@@ -77,22 +79,22 @@ class ViewController: UIViewController {
             }
         }
         
-        // start fetching data from url
+        // Start fetching data from url here..
         viewModel.initFetch()
     }
     
-    //adding reload button in navigation bar
-    func setupNavigationBarItems(){
-      
-            let reloadButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(ViewController.didTapReloadButton(sender:)))
-             reloadButton.tintColor = UIColor.purple
-                   self.navigationItem.rightBarButtonItem = reloadButton
+    //Setting reload button in navigation bar
+    private func setupNavigationBarItems(){
+        
+        let reloadButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(ViewController.didTapReloadButton(sender:)))
+        reloadButton.tintColor = UIColor.purple
+        self.navigationItem.rightBarButtonItem = reloadButton
     }
     
     
     
     //adding tableview
-    func setupTableView(){
+    private func setupTableView(){
         
         tableView = UITableView()
         view.addSubview(tableView)
@@ -107,35 +109,38 @@ class ViewController: UIViewController {
     }
     
     //reload button click action
-    @objc func didTapReloadButton(sender: UIBarButtonItem){
-        //reload data
-         DispatchQueue.main.async {
+    @objc private func didTapReloadButton(sender: UIBarButtonItem){
+        //Hide tableview & show activity indicator
+        DispatchQueue.main.async {
             UIView.animate(withDuration: Constants.animate_duration, animations: {
-                           self.tableView.alpha = CGFloat(Constants.alpha_0)
-                       })
+                self.tableView.alpha = CGFloat(Constants.alpha_0)
+            })
             self.showActivityIndicator()
-
+            
         }
+        //reload data
         viewModel.initFetch()
     }
 }
 
-//tableview delegate & datasource methods
-extension ViewController: UITableViewDataSource,UITableViewDelegate{
+//tableview datasource
+extension ViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfCells
     }
     
+}
+//tableview delegate
+extension ViewController:UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cell_identifier, for: indexPath) as? RowCell else{
             fatalError("Cell does not exists")
         }
+        // Setting data from ViewModel
         let cellVM = viewModel.getCellViewModel(at : indexPath)
         cell.cellVM = cellVM
-        
         return cell
     }
-    
 }

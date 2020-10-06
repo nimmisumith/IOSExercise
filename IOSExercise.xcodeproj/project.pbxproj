@@ -17,12 +17,11 @@
 		A403E1AD252103550067E949 /* RowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A403E1AC252103550067E949 /* RowModel.swift */; };
 		A403E1B2252103980067E949 /* RowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A403E1B1252103980067E949 /* RowCell.swift */; };
 		A403E1B6252107710067E949 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A403E1B3252107710067E949 /* Constants.swift */; };
-		A403E1B7252107710067E949 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A403E1B4252107710067E949 /* Utility.swift */; };
 		A403E1B8252107710067E949 /* ApiCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = A403E1B5252107710067E949 /* ApiCalls.swift */; };
 		A403E1BA2521082A0067E949 /* file.json in Resources */ = {isa = PBXBuildFile; fileRef = A403E1B92521082A0067E949 /* file.json */; };
 		A4307AF22525F8D3008440DD /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4307AF12525F8D2008440DD /* ListViewModel.swift */; };
+		A442DBBC252C40CB00D571C1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A442DBBB252C40CB00D571C1 /* UIView.swift */; };
 		A4556A32252B5D9100942CE2 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4556A31252B5D9100942CE2 /* UIViewController.swift */; };
-		A46B042D252A3C9A00FB8D71 /* APIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B042C252A3C9800FB8D71 /* APIServiceTests.swift */; };
 		A46B042F252A5ED000FB8D71 /* ListViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B042E252A5ED000FB8D71 /* ListViewModelTest.swift */; };
 		E6985D9750A4902530915888 /* libPods-IOSExerciseTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 960D1B3C380A28664E8A6285 /* libPods-IOSExerciseTests.a */; };
 /* End PBXBuildFile section */
@@ -57,12 +56,11 @@
 		A403E1AC252103550067E949 /* RowModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowModel.swift; sourceTree = "<group>"; };
 		A403E1B1252103980067E949 /* RowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowCell.swift; sourceTree = "<group>"; };
 		A403E1B3252107710067E949 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		A403E1B4252107710067E949 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		A403E1B5252107710067E949 /* ApiCalls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiCalls.swift; sourceTree = "<group>"; };
 		A403E1B92521082A0067E949 /* file.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = file.json; sourceTree = "<group>"; };
 		A4307AF12525F8D2008440DD /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		A442DBBB252C40CB00D571C1 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		A4556A31252B5D9100942CE2 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
-		A46B042C252A3C9800FB8D71 /* APIServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceTests.swift; sourceTree = "<group>"; };
 		A46B042E252A5ED000FB8D71 /* ListViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModelTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,6 +127,7 @@
 		A403E1842520E1F60067E949 /* IOSExercise */ = {
 			isa = PBXGroup;
 			children = (
+				A4D1CB8F252C7E6500E249B7 /* Extensions */,
 				A403E1B0252103980067E949 /* Views */,
 				A403E1AA2520EEA70067E949 /* Podfile */,
 				A403E1A92520E7B60067E949 /* Utilities */,
@@ -146,7 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				A403E19E2520E21E0067E949 /* Info.plist */,
-				A46B042C252A3C9800FB8D71 /* APIServiceTests.swift */,
+				A403E1B92521082A0067E949 /* file.json */,
 				A46B042E252A5ED000FB8D71 /* ListViewModelTest.swift */,
 			);
 			path = IOSExerciseTests;
@@ -164,11 +163,8 @@
 		A403E1A92520E7B60067E949 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				A403E1B92521082A0067E949 /* file.json */,
 				A403E1B5252107710067E949 /* ApiCalls.swift */,
 				A403E1B3252107710067E949 /* Constants.swift */,
-				A403E1B4252107710067E949 /* Utility.swift */,
-				A4556A31252B5D9100942CE2 /* UIViewController.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -180,6 +176,15 @@
 				A403E1B1252103980067E949 /* RowCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A4D1CB8F252C7E6500E249B7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A442DBBB252C40CB00D571C1 /* UIView.swift */,
+				A4556A31252B5D9100942CE2 /* UIViewController.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -353,11 +358,11 @@
 			files = (
 				A4307AF22525F8D3008440DD /* ListViewModel.swift in Sources */,
 				A403E18A2520E1F60067E949 /* ViewController.swift in Sources */,
+				A442DBBC252C40CB00D571C1 /* UIView.swift in Sources */,
 				A403E1B2252103980067E949 /* RowCell.swift in Sources */,
 				A403E1862520E1F60067E949 /* AppDelegate.swift in Sources */,
 				A4556A32252B5D9100942CE2 /* UIViewController.swift in Sources */,
 				A403E1B8252107710067E949 /* ApiCalls.swift in Sources */,
-				A403E1B7252107710067E949 /* Utility.swift in Sources */,
 				A403E1B6252107710067E949 /* Constants.swift in Sources */,
 				A403E1AD252103550067E949 /* RowModel.swift in Sources */,
 				A403E1882520E1F60067E949 /* SceneDelegate.swift in Sources */,
@@ -368,7 +373,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A46B042D252A3C9A00FB8D71 /* APIServiceTests.swift in Sources */,
 				A46B042F252A5ED000FB8D71 /* ListViewModelTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

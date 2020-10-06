@@ -12,15 +12,16 @@ import SDWebImage
 
 class RowCell: UITableViewCell {
     
+    /*  This class designs individual views in a single tableview cell */
     
-    var titleLabel: UILabel!
-    var descriptionLabel: UILabel!
-    var rowImage: UIImageView!
     
-    // Setting data in cell views from viewmodel, when cell viewmodel data is set.
+    private var titleLabel: UILabel!
+    private var descriptionLabel: UILabel!
+    private var rowImage: UIImageView!
+    
+    // Setting data in individual views from viewmodel, when cell viewmodel data is set.
     var cellVM : CellViewModel?{
         didSet{
-            
             titleLabel.text = cellVM?.rowtitle
             descriptionLabel.attributedText = NSAttributedString(string: cellVM?.descript ?? Constants.emptyString)
             rowImage?.sd_setImage(with: URL(string: cellVM?.imageHref ?? Constants.emptyString), placeholderImage: nil, context: [.imageTransformer: getSDTransformer()])
@@ -33,31 +34,36 @@ class RowCell: UITableViewCell {
     }
     
     //Table cell configuration, view alignment
-    func configure(){
+    private func configure(){
+        //setup contentview's constraints
         self.contentView.snp.makeConstraints{
             $0.top.left.bottom.right.equalToSuperview()
         }
-        
+        //create stackview with vertical alignment, add it to contentview
         let stack = UIStackView()
         stack.distribution = .fillProportionally
         stack.alignment = .fill
         stack.axis = .vertical
         stack.spacing = Constants.stack_spacing
         self.contentView.addSubview(stack)
-        
+        //stackview's constraints
         stack.snp.makeConstraints{ make in
             make.top.left.equalTo(Constants.stack_padding)
             make.bottom.right.equalTo(-Constants.stack_padding)
         }
+        //title label
         titleLabel = UILabel()
         titleLabel.textColor = UIColor.purple
+        // description label
         descriptionLabel = UILabel()
         descriptionLabel.numberOfLines = Constants.infinite_lines
         descriptionLabel.textColor = UIColor.darkGray
+        //imageview
         rowImage = UIImageView()
-        titleLabel.font = UIFont.boldSystemFont(ofSize: Utility.shared.getSize(input: CGFloat(Constants.title_fontsize), view: titleLabel))
-        descriptionLabel.font = UIFont.systemFont(ofSize: Utility.shared.getSize(input: CGFloat(Constants.normal_fontsize), view: descriptionLabel))
+        titleLabel.font = UIFont.boldSystemFont(ofSize: getSize(input: CGFloat(Constants.title_fontsize)))
+        descriptionLabel.font = UIFont.systemFont(ofSize: getSize(input: CGFloat(Constants.normal_fontsize)))
         
+        //adding views to the stackview
         stack.addArrangedSubview(titleLabel)
         stack.addArrangedSubview(rowImage)
         stack.addArrangedSubview(descriptionLabel)
@@ -65,7 +71,7 @@ class RowCell: UITableViewCell {
     }
     
     //resizing image to a fixed size area
-    func getSDTransformer() -> SDImageResizingTransformer{
+    private func getSDTransformer() -> SDImageResizingTransformer{
         return SDImageResizingTransformer(size: CGSize(width: Constants.image_width,height: Constants.image_height),scaleMode: .aspectFit)
     }
     
@@ -73,3 +79,4 @@ class RowCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+

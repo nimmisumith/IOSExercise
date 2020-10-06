@@ -6,18 +6,16 @@
 //  Copyright © 2020 Nimmi P. All rights reserved.
 //
 
-import Foundation
+//import Foundation
 import UIKit
 
 struct Constants{
     // Constant strings to be used across application
     static let URL_PATH = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
     static let InternetCheckMessage = "Please check your Internet Connection..."
+    static let ErrorMessage = "Something went Wrong..."
     // ViewController
-    static let navigation_height = 44.0
-    static let statusbar_height = 22
     static let indicator_size = 40
-    static let tableview_top_margin = 60
     static let animate_duration = 0.2
     static let alpha_0: CGFloat = 0.0
     static let alpha_1: CGFloat = 1.0

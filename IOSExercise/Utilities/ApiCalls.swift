@@ -8,13 +8,16 @@
 
 import Foundation
 
+
+//Protocol that defines function for accessing data from url
 protocol APIServiceProtocol{
-    func getJsonFromUrl(complete: @escaping(_ success : Bool, _ data :Rows,_ error : Error? )->())
+    func getJsonFromUrl(complete: @escaping(_ : Bool, _ :Rows?, _ : Error?)->())
 }
+
+//Class that implements this protocol
 class ApiCalls: NSObject, APIServiceProtocol{
     
-    
-    var url : URL!
+    private var url : URL!
     
     override init() {
         super.init()
@@ -22,58 +25,30 @@ class ApiCalls: NSObject, APIServiceProtocol{
     }
     
     //read data from url
-    func getJsonFromUrl(complete: @escaping (Bool, Rows, Error?) -> ()) {
-        
+    func getJsonFromUrl(complete: @escaping (Bool, Rows?, Error?) -> ()) {
+    
         DispatchQueue.global().async {
             sleep(3)
             URLSession.shared.dataTask(with: self.url, completionHandler: {data, response, error in
                 
                 if error != nil{
-                    self.readJsonFile(fileName: Constants.json_file){(success, rows, error) in
-                        complete(success, rows, nil)
-                    }
-                    return
+                      complete(false, nil, error)
+                      return
                 }
                 guard let data = data else{
                     return
                 }
-                
+                //data load success
                 let decoder = JSONDecoder()
                 do{
                     let rdata = try decoder.decode(Rows.self,from: data)
-                   // self.serverdata.title = rdata.title
-                    complete(true, rdata, nil)
-
+                    complete(true, rdata, nil) 
                 
-                }catch{
-                    self.readJsonFile(fileName: Constants.json_file){(success, rows, error) in
-                        complete(success, rows, nil)
-                    }
+                }catch let error{
+                    complete(false, nil, error)
                 }
             }).resume()
         }
-    }
-    
-    //Read data from file if api fails to load
-    func readJsonFile(fileName: String,complete: @escaping (Bool, Rows, Error?) -> ()) {
-        
-        if let path = Bundle.main.path(forResource: fileName, ofType: "json") {
-            
-            do {
-                
-                let json = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let decoder = JSONDecoder()
-                
-                let rdata = try decoder.decode(Rows.self,from: json)
-               // self.serverdata.title = rdata.title
-                complete(true, rdata, nil)
-                
-            }catch let error {
-                print(error.localizedDescription)
-            }
-            
-        }
-        
     }
     
 }

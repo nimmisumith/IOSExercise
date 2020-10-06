@@ -6,13 +6,13 @@
 //  Copyright © 2020 Nimmi P. All rights reserved.
 //
 
-import Foundation
 
 // codable structure for storing parsed json data
 struct Rows: Codable{
     let title: String
     let rows: [RowModel]
 }
+// data model for each row
 struct RowModel: Codable{
     let rowtitle: String?
     let descript: String?
