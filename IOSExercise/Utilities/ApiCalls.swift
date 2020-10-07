@@ -32,18 +32,24 @@ class ApiCalls: NSObject, APIServiceProtocol{
             URLSession.shared.dataTask(with: self.url, completionHandler: {data, response, error in
                 
                 if error != nil{
-                      complete(false, nil, error)
-                      return
-                }
-                guard let data = data else{
+                    complete(false, nil, error)
                     return
                 }
-                //data load success
-                let decoder = JSONDecoder()
                 do{
-                    let rdata = try decoder.decode(Rows.self,from: data)
+                    guard let data = data else{
+                        return
+                    }
+                    guard let dataText = String(data: data, encoding: .isoLatin1) else{
+                        return
+                    }
+                    guard let formatedData = dataText.data(using: .utf8, allowLossyConversion: true) else{
+                        return
+                    }
+                    //data load success
+                    let decoder = JSONDecoder()
+                    let rdata = try decoder.decode(Rows.self,from: formatedData)
                     complete(true, rdata, nil) 
-                
+                    
                 }catch let error{
                     complete(false, nil, error)
                 }

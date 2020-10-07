@@ -91,12 +91,10 @@ class ViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = reloadButton
     }
     
-    
-    
     //adding tableview
     private func setupTableView(){
         
-        tableView = UITableView()
+        tableView = UITableView(frame: .zero)
         view.addSubview(tableView)
         tableView.snp.makeConstraints{
             $0.top.left.bottom.right.equalToSuperview()
@@ -141,6 +139,7 @@ extension ViewController:UITableViewDelegate{
         // Setting data from ViewModel
         let cellVM = viewModel.getCellViewModel(at : indexPath)
         cell.cellVM = cellVM
+        cell.layoutIfNeeded() //To update layout immediately
         return cell
     }
 }

@@ -17,6 +17,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         return true
     }
+    
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        if #available(iOS 13.0, *){
+            //iOS 13 setup is done in SceneDelegate
+        }else{
+            self.window = UIWindow()
+            let nav = UINavigationController(rootViewController: ViewController())
+            window?.backgroundColor = UIColor.white
+            window?.rootViewController = nav
+            window?.makeKeyAndVisible()
+            
+        }
+        return true
+    }
+    
 
     // MARK: UISceneSession Lifecycle
     @available(iOS 13.0, *)

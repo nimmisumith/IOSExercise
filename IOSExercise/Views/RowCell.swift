@@ -30,7 +30,7 @@ class RowCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.configure()
+            self.configure()
     }
     
     //Table cell configuration, view alignment
